@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Lane — share a nostalgic memory</title>
+<meta name="description" content="A shared board of nostalgic memories — in your own words or a photo, no account needed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="board">
+
+  <header class="hero">
+    <p class="hero__mark">est. whenever you remember it</p>
+    <h1 class="hero__title">Memory Lane</h1>
+    <p class="hero__tagline">A board for the small things you still remember —<br>
+    a song, a smell, a summer, a person. Pin one up. Read someone else's.</p>
+    <button id="openComposer" class="btn btn--primary">Share a memory</button>
+  </header>
+
+  <section id="composer" class="composer" hidden>
+    <form id="memoryForm" novalidate>
+      <button type="button" id="closeComposer" class="composer__close" aria-label="Close">×</button>
+
+      <label class="field">
+        <span class="field__label">Your name</span>
+        <input type="text" id="name" name="name" maxlength="40" placeholder="What should we call you?" required>
+      </label>
+
+      <label class="field">
+        <span class="field__label">The memory</span>
+        <textarea id="story" name="story" maxlength="1200" rows="5" placeholder="Take your time. What do you remember?" required></textarea>
+        <span class="field__count"><span id="storyCount">0</span>/1200</span>
+      </label>
+
+      <label class="field">
+        <span class="field__label">A photo <em>(optional)</em></span>
+        <input type="file" id="photo" name="photo" accept="image/*">
+        <span class="field__hint">JPG or PNG, it'll be resized automatically.</span>
+      </label>
+
+      <div id="photoPreviewWrap" class="photo-preview" hidden>
+        <img id="photoPreview" alt="Selected photo preview">
+        <button type="button" id="removePhoto" class="photo-preview__remove">Remove photo</button>
+      </div>
+
+      <div class="composer__footer">
+        <span id="formError" class="form-error" role="alert"></span>
+        <button type="submit" id="submitBtn" class="btn btn--primary">Pin it to the board</button>
+      </div>
+    </form>
+  </section>
+
+  <main>
+    <div id="statusMsg" class="status-msg">Loading memories…</div>
+    <div id="feed" class="feed" aria-live="polite"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Every memory here was shared by a visitor, out in the open — no accounts, no logins. Be kind with what people trust you with.</p>
+  </footer>
+
+</div>
+
+<template id="cardTemplate">
+  <article class="card">
+    <div class="card__photoWrap"><img class="card__photo" alt=""></div>
+    <p class="card__story"></p>
+    <div class="card__footer">
+      <span class="card__pin" aria-hidden="true"></span>
+      <span class="card__name"></span>
+      <span class="card__date"></span>
+    </div>
+  </article>
+</template>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
